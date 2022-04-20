@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <bpmn:process id="event-subprocess-example" name="event-subprocess-example" isExecutable="true">
+    <bpmn:extensionElements>
+      <camunda:properties />
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEventProcessStarted" name="Process&#10;started">
+      <bpmn:outgoing>Flow_0kns4sb</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEventProcessEnded" name="Process&#10;ended">
+      <bpmn:incoming>Flow_0j99nyk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0j99nyk" sourceRef="Activity_1xk9q9t" targetRef="EndEventProcessEnded" />
+    <bpmn:subProcess id="Activity_04sex99" triggeredByEvent="true">
+      <bpmn:endEvent id="Event_1ir44ny" name="Order Canceled">
+        <bpmn:incoming>Flow_195d86i</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_10j1aab" sourceRef="Event_0gsu8k4" targetRef="Activity_09n0o9d" />
+      <bpmn:sequenceFlow id="Flow_195d86i" sourceRef="Activity_09n0o9d" targetRef="Event_1ir44ny" />
+      <bpmn:startEvent id="Event_0gsu8k4">
+        <bpmn:outgoing>Flow_10j1aab</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_0ujan63" messageRef="Message_0b0jh8q" />
+      </bpmn:startEvent>
+      <bpmn:userTask id="Activity_09n0o9d" name="Process Cancellation" camunda:formKey="embedded:app:forms/cancel-order-form.html">
+        <bpmn:incoming>Flow_10j1aab</bpmn:incoming>
+        <bpmn:outgoing>Flow_195d86i</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Activity_0x3ibu7" triggeredByEvent="true">
+      <bpmn:endEvent id="Event_04d9mqh" name="End">
+        <bpmn:incoming>Flow_1hqwkp3</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1j1ngco" sourceRef="Event_1gpu7zq" targetRef="Activity_0y3b5t3" />
+      <bpmn:sequenceFlow id="Flow_1hqwkp3" sourceRef="Activity_0y3b5t3" targetRef="Event_04d9mqh" />
+      <bpmn:startEvent id="Event_1gpu7zq" name="Warning Received" isInterrupting="false">
+        <bpmn:outgoing>Flow_1j1ngco</bpmn:outgoing>
+        <bpmn:messageEventDefinition id="MessageEventDefinition_01z80mj" messageRef="Message_08xcr5n" />
+      </bpmn:startEvent>
+      <bpmn:userTask id="Activity_0y3b5t3" name="Review Warning" camunda:formKey="embedded:app:forms/warning-message-form.html">
+        <bpmn:incoming>Flow_1j1ngco</bpmn:incoming>
+        <bpmn:outgoing>Flow_1hqwkp3</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:userTask id="Activity_1xk9q9t" name="Process Order" camunda:formKey="embedded:app:forms/order-in-progress-form.html" camunda:assignee="${assignee}" camunda:candidateGroups="${candidateGroups}">
+      <bpmn:incoming>Flow_032a9jd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0j99nyk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0kns4sb" sourceRef="StartEventProcessStarted" targetRef="task_assignment" />
+    <bpmn:sequenceFlow id="Flow_032a9jd" sourceRef="task_assignment" targetRef="Activity_1xk9q9t" />
+    <bpmn:businessRuleTask id="task_assignment" name="Determine Task Assignment" camunda:resultVariable="decisionResult" camunda:decisionRef="Decision_Task_Assignment">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="assignee">
+            <camunda:script scriptFormat="feel">((for r in decisionResult return get value(r, "assignee"))[item != null])[1]</camunda:script>
+          </camunda:outputParameter>
+          <camunda:outputParameter name="candidateGroups">
+            <camunda:script scriptFormat="feel">((for r in decisionResult return get value(r, "candidateGroups"))[item != null])[1]</camunda:script>
+          </camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0kns4sb</bpmn:incoming>
+      <bpmn:outgoing>Flow_032a9jd</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+  </bpmn:process>
+  <bpmn:message id="Message_0b0jh8q" name="CANCEL_PROCESS" />
+  <bpmn:message id="Message_08xcr5n" name="WARNING_MESSAGE" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="event-subprocess-example">
+      <bpmndi:BPMNEdge id="Flow_032a9jd_di" bpmnElement="Flow_032a9jd">
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="470" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kns4sb_di" bpmnElement="Flow_0kns4sb">
+        <di:waypoint x="238" y="120" />
+        <di:waypoint x="280" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0j99nyk_di" bpmnElement="Flow_0j99nyk">
+        <di:waypoint x="570" y="120" />
+        <di:waypoint x="672" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventProcessStarted">
+        <dc:Bounds x="202" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="200" y="138" width="41" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="EndEventProcessEnded">
+        <dc:Bounds x="672" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="670" y="138" width="41" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0yu7ehz_di" bpmnElement="Activity_04sex99" isExpanded="true">
+        <dc:Bounds x="155" y="240" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_195d86i_di" bpmnElement="Flow_195d86i">
+        <di:waypoint x="370" y="340" />
+        <di:waypoint x="422" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10j1aab_di" bpmnElement="Flow_10j1aab">
+        <di:waypoint x="231" y="340" />
+        <di:waypoint x="270" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1ir44ny_di" bpmnElement="Event_1ir44ny">
+        <dc:Bounds x="422" y="322" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="402" y="365" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0g7hmxk_di" bpmnElement="Event_0gsu8k4">
+        <dc:Bounds x="195" y="322" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_05sryuf_di" bpmnElement="Activity_09n0o9d">
+        <dc:Bounds x="270" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00rx30e_di" bpmnElement="Activity_0x3ibu7" isExpanded="true">
+        <dc:Bounds x="595" y="240" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1hqwkp3_di" bpmnElement="Flow_1hqwkp3">
+        <di:waypoint x="820" y="340" />
+        <di:waypoint x="882" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j1ngco_di" bpmnElement="Flow_1j1ngco">
+        <di:waypoint x="671" y="340" />
+        <di:waypoint x="720" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_04d9mqh_di" bpmnElement="Event_04d9mqh">
+        <dc:Bounds x="882" y="322" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="890" y="365" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_086uxik_di" bpmnElement="Event_1gpu7zq">
+        <dc:Bounds x="635" y="322" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="609" y="365" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0oo0q8y_di" bpmnElement="Activity_0y3b5t3">
+        <dc:Bounds x="720" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d28cvn_di" bpmnElement="Activity_1xk9q9t">
+        <dc:Bounds x="470" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06n0nrv_di" bpmnElement="task_assignment">
+        <dc:Bounds x="280" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

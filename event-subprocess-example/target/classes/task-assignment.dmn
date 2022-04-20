@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1c4z0wu" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="Decision_Task_Assignment" name="Task Assignment">
+    <informationRequirement id="InformationRequirement_03e52en">
+      <requiredInput href="#InputData_0h2v3j9" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1isypd6">
+      <requiredInput href="#InputData_1385yw9" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0gubs60" hitPolicy="COLLECT">
+      <input id="Input_1" label="Employee Name" camunda:inputVariable="employeeName">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0m09cjn" label="Company Name" biodi:width="192" camunda:inputVariable="companyName">
+        <inputExpression id="LiteralExpression_1wgfi1b" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Assignee" name="assignee" typeRef="string" />
+      <output id="OutputClause_1wnbbh1" label="Candidate Groups" name="candidateGroups" typeRef="string" />
+      <rule id="DecisionRule_0s5unt0">
+        <inputEntry id="UnaryTests_1x5s0th">
+          <text>"Harish"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hk4knf">
+          <text>"Meta"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r87e6e">
+          <text>"demo"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0u5lqpp">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qmsvv7">
+        <inputEntry id="UnaryTests_0ocesk3">
+          <text>"Jheel"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wvkvrj">
+          <text>"Alphabate"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l8at2k">
+          <text>"mary"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mea01u">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19vzypn">
+        <inputEntry id="UnaryTests_1hk664l">
+          <text>"Ayaan"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12s1u56">
+          <text>"Amazon"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hiivrk">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nd317v">
+          <text>"Finance"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ubd1nu">
+        <inputEntry id="UnaryTests_1saj5bz">
+          <text>"Shanaya"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1as42r3">
+          <text>"Stripe"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1my3xwq">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a5m04q">
+          <text>"Accounting"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tot254">
+        <inputEntry id="UnaryTests_1kbthrc">
+          <text>"Ahaana"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zecggw">
+          <text>"Sapcex"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zn8vii">
+          <text>"peter"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rajmla">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0h2v3j9" name="Employee Name" />
+  <inputData id="InputData_1385yw9" name="Company Name" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_Task_Assignment">
+        <dc:Bounds height="80" width="180" x="300" y="120" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_14syisg" dmnElementRef="InputData_0h2v3j9">
+        <dc:Bounds height="45" width="125" x="187" y="267" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1wkg70x" dmnElementRef="InputData_1385yw9">
+        <dc:Bounds height="45" width="125" x="458" y="268" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0c2q14m" dmnElementRef="InformationRequirement_03e52en">
+        <di:waypoint x="250" y="267" />
+        <di:waypoint x="360" y="220" />
+        <di:waypoint x="360" y="200" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_16z2dhu" dmnElementRef="InformationRequirement_1isypd6">
+        <di:waypoint x="521" y="268" />
+        <di:waypoint x="420" y="220" />
+        <di:waypoint x="420" y="200" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

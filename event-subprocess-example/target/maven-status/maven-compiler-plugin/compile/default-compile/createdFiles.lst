@@ -1,0 +1,6 @@
+org\example\SetVariables.class
+org\example\MyDecisionResultListener.class
+org\example\MyTaskCreateListener.class
+org\example\CamundaBpmProcessApplication.class
+org\example\SendCancelMessage.class
+org\example\LoggerDelegate.class
