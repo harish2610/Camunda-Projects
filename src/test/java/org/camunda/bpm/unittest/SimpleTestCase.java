@@ -48,6 +48,8 @@ public class SimpleTestCase {
         complete(task(processInstance));
         // Then the process instance should be ended
         assertThat(processInstance).isEnded();
+
+        System.out.println("Method shouldExecuteProcess() completed");
     }
 
     @Test
