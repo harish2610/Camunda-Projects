@@ -49,7 +49,7 @@ public class SimpleTestCase {
         // Then the process instance should be ended
         assertThat(processInstance).isEnded();
 
-        System.out.println("Method shouldExecuteProcess() completed");
+        System.out.println("Method shouldExecuteProcess() completed now.....");
     }
 
     @Test
