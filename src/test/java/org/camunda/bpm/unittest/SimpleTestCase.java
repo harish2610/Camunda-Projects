@@ -35,6 +35,9 @@ public class SimpleTestCase {
     @Test
     @Deployment(resources = {"testProcess.bpmn"})
     public void shouldExecuteProcess() {
+
+        System.out.println("I made a change");
+
         // Given we create a new process instance
         ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("testProcess");
         // Then it should be active
