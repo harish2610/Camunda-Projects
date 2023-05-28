@@ -36,7 +36,7 @@ public class SimpleTestCase {
     @Deployment(resources = {"testProcess.bpmn"})
     public void shouldExecuteProcess() {
 
-        System.out.println("I made a change");
+        System.out.println("I made a second change");
 
         // Given we create a new process instance
         ProcessInstance processInstance = runtimeService().startProcessInstanceByKey("testProcess");
