@@ -44,7 +44,7 @@ public class SimpleTestCase {
         // And there should exist just a single task within that process instance
         assertThat(task(processInstance)).isNotNull();
 
-        // When we complete that task
+        // When we complete that task1
         complete(task(processInstance));
         // Then the process instance should be ended
         assertThat(processInstance).isEnded();
